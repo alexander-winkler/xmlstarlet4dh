@@ -70,6 +70,18 @@ Other examples: Provided all people involved are mentioned in the `<respStmt>` i
 xmlstarlet sel -N xmlns="http://www.tei-c.org/ns/1.0" -t -v "//xmlns:respStmt/xmlns:name" yourfile.xml
 ```
 
+### Select element that contains specific text
+
+```bash
+xmlstarlet sel -t -c '//_:title[contains(text(), "sample string")]' <XML_FILE>.xml
+```
+In order to select nodes that do **not** contain `sample string` use `not()`In order to select nodes that do **not** contain `sample string` use `not()`:
+
+```bash
+xmlstarlet sel -t -c '//_:title[not(contains(text(), "sample string")]' <XML_FILE>.xml
+```
+
+Selects any `<title>` node whose text contains the string `sample string`. 
 
 Collection of online ressources:
 - [Wikipedia with a number of examples](https://en.wikipedia.org/wiki/XMLStarlet)
@@ -141,3 +153,12 @@ xmlstarlet sel -t -m "//_:editor/_:persName" --nl -v "_:surname" -v "@ref" XMLFI
 ```
 
 Putting `--nl` in front of a `-v' (print value) option insert a newline after the value.
+
+
+Create list of `name` elements with `@type` attribute:
+
+```
+curl "http://mateo.uni-mannheim.de/camena/bald1/books/baldepoemata1_1.xml" | xmlstarlet sel -t -m '//name' -v '.' -o "," -v '@type' --nl
+```
+
+
